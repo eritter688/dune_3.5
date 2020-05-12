@@ -2,9 +2,40 @@
  * Master Object - Initialization
  *
  */
+object simul_efun;
 
 void inaugurate_master(int arg) {
-    // DRIVER HOOKS
+
+    set_driver_hook(H_MOVE_OBJECT0, "");
+
+    set_driver_hook(H_LOAD_UIDS, "");
+    set_driver_hook(H_CLONE_UIDS, "");
+
+    set_driver_hook(H_CREATE_SUPER, "create");
+    set_driver_hook(H_CREATE_OB, "create");
+    set_driver_hook(H_CREATE_CLONE, "create");
+    set_driver_hook(H_RESET, "reset");
+
+    set_driver_hook(H_CLEAN_UP, "clean_up");
+
+    set_driver_hook(
+            H_MODIFY_COMMAND,
+            ([
+                    "n":"north", "e":"east", "s":"south", "w":"west",
+                    "ne":"northeast", "nw":"northwest", "se":"southeast", "sw":"southwest",
+                    "u":"up", "d":"down"
+            ])
+    );
+    set_driver_hook(H_MODIFY_COMMAND_FNAME, "modify_command");
+
+    set_driver_hook(H_NOTIFY_FAIL, "What ?\n");
+
+    set_driver_hook(H_INCLUDE_DIRS, "");
+
+    set_driver_hook(H_AUTO_INCLUDE, "#include \"/include/auto.h\"\n");
+
+    set_driver_hook(H_ERQ_STOP, "");
+
     return;
 }
 
@@ -25,8 +56,13 @@ void flag(string arg) {
     debug_message(sprintf("master::flag(string arg) not implemented. Received '%s'.\n", arg));
 }
 
+/*
+ * Load the INIT_FILE into an array of strings, line for line.
+ * Each line of the resulting array is then passed to the preload function.
+ */
 string* epilog(int eflag) {
     string init_file;
+
     if(eflag) {
         debug_message("Skipping init file: "INIT_FILE"\n");
         return ({});
@@ -41,23 +77,44 @@ string* epilog(int eflag) {
 
 /*
  * Load a file passed in from the epilog function.
- * 
+ * Empty strings and lines starting with # are not processed.
  */ 
 void preload(string filename) {
     int start_time;
     int finish_time;
   
-    if(strlen(filename) > 0 && filename[0] != '#') {
-        debug_message(sprintf("Preloading: %s ", filename));
+    if((strlen(filename) > 0) && (filename[0] != '#')) {
+        debug_message(sprintf("Preloading: %s =>", filename));
         start_time = time();
         if(catch(load_object(filename))) {
-            debug_message(" FAILED\n");
+            debug_message(" FAILED!\n");
         } else {
             finish_time = time();
-            debug_message(sprintf(" %.2fs\n",(current_time-last_time)));
+            debug_message(sprintf(" OK! %ds\n",(finish_time - start_time)));
         }
     }
-    return;
+}
+
+/*
+ * Load the simul_efun object and return it's path.
+ */
+string get_simul_efun() {
+    string fname;
+    string error;
+
+    if(simul_efun) {
+        return efun::object_name(simul_efun);
+    }
+    fname = SIMUL_EFUN_FILE;
+    if(error = catch(efun::load_object(fname))) {
+        debug_message(sprintf("Couldn't load simul_efun object: %s\n", fname));
+        debug_message(sprintf("%s\n", error[1..]));
+        debug_message("Shutting down.\n");
+        efun::shutdown();
+        return "";
+    }
+    simul_efun=(object)fname;
+    return fname;
 }
 
 void external_master_reload() {
@@ -65,10 +122,5 @@ void external_master_reload() {
 }
 
 void reactivate_destructed_master(int removed) {
-    raise_error(
-            sprintf("master::reactivate_destructed_master(int removed) not implemented. Received '%d'.\n", removed));
-}
-
-string get_simul_efun() {
-    return;
+    raise_error("master::reactivate_destructed_master(int removed) not implemented.\n");
 }

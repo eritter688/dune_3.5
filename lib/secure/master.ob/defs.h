@@ -9,9 +9,12 @@
 #pragma strong_types
 #pragma pedantic
 
-// file parsed in preload() & unload()
+// file parsed on startup and shutdown
 #define INIT_FILE                          ""
 #define SHUT_FILE                          ""
+
+// simul
+#define SIMUL_EFUN_FILE                    ""
 
 #endif // _H_MASTER_DEFS_H_
 

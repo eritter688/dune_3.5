@@ -11,12 +11,11 @@ void inaugurate_master(int arg) {
     set_driver_hook(H_LOAD_UIDS, "");
     set_driver_hook(H_CLONE_UIDS, "");
 
-    set_driver_hook(H_CREATE_SUPER, "create");
-    set_driver_hook(H_CREATE_OB, "create");
-    set_driver_hook(H_CREATE_CLONE, "create");
-    set_driver_hook(H_RESET, "reset");
-
-    set_driver_hook(H_CLEAN_UP, "clean_up");
+    set_driver_hook(H_CREATE_SUPER, OBJECT_CREATE_FUNCTION_NAME);
+    set_driver_hook(H_CREATE_OB, OBJECT_CREATE_FUNCTION_NAME);
+    set_driver_hook(H_CREATE_CLONE, OBJECT_CREATE_FUNCTION_NAME);
+    set_driver_hook(H_RESET, OBJECT_RESET_FUNCTION_NAME);
+    set_driver_hook(H_CLEAN_UP, OBJECT_CLEAN_FUNCTION_NAME);
 
     set_driver_hook(
             H_MODIFY_COMMAND,
@@ -32,7 +31,7 @@ void inaugurate_master(int arg) {
 
     set_driver_hook(H_INCLUDE_DIRS, "");
 
-    set_driver_hook(H_AUTO_INCLUDE, "#include \"/include/auto.h\"\n");
+    set_driver_hook(H_AUTO_INCLUDE, INCLUDE_DIRECTORIES);
 
     set_driver_hook(H_ERQ_STOP, "");
 
@@ -80,17 +79,13 @@ string* epilog(int eflag) {
  * Empty strings and lines starting with # are not processed.
  */ 
 void preload(string filename) {
-    int start_time;
-    int finish_time;
-  
+
     if((strlen(filename) > 0) && (filename[0] != '#')) {
         debug_message(sprintf("Preloading: %s =>", filename));
-        start_time = time();
         if(catch(load_object(filename))) {
             debug_message(" FAILED!\n");
         } else {
-            finish_time = time();
-            debug_message(sprintf(" OK! %ds\n",(finish_time - start_time)));
+            debug_message(" OK!\n");
         }
     }
 }

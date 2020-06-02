@@ -76,7 +76,6 @@ string* epilog(int eflag) {
  * Empty strings and lines starting with # are not processed.
  */ 
 void preload(string filename) {
-
     if((strlen(filename) > 0) && (filename[0] != '#')) {
         debug_message(sprintf("Preloading: %s =>", filename));
         if(catch(load_object(filename))) {

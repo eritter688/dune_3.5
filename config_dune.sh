@@ -1,12 +1,12 @@
 #!/bin/bash
 #
 # Config script for Dune.
-# LDMud 3.5.2
+# LDMud 3.6.2
 # 
 # Orbital
 
 cd ..
-cd ldmud-3.5.2/src
+cd ldmud-3.6.2/src
 
 ./configure \
 \

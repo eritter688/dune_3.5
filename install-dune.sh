@@ -5,7 +5,7 @@
 # Orbital
 
 cd ..
-cd ldmud-3.5.2/src/
+cd ldmud-3.6.2/src/
 
 make clean
 make install

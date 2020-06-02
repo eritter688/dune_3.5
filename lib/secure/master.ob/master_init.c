@@ -47,15 +47,6 @@ string get_master_uid() {
 }
 
 /*
- * Evaluate an argument given as option '-f' to the driver on startup 
- * from the command line. If several '-f' options are given, this 
- * function will be called sequentially with all given arguments.
- */
-void flag(string arg) {
-    debug_message(sprintf("master::flag(string arg) not implemented. Received '%s'.\n", arg));
-}
-
-/*
  * Load the INIT_FILE into an array of strings, line for line.
  * Each line of the resulting array is then passed to the preload function.
  */
@@ -110,6 +101,14 @@ string get_simul_efun() {
     }
     simul_efun=(object)fname;
     return fname;
+}
+
+/*
+ * Currently not implemented.
+ */
+
+void flag(string arg) {
+    debug_message(sprintf("master::flag(string arg) not implemented. Received '%s'.\n", arg));
 }
 
 void external_master_reload() {

@@ -37,7 +37,7 @@ void      receive_udp(string host, string msg, int hostport);
 void      slow_shut_down(int minutes);
 void      notify_shutdown();
 int       handle_external_signal(int signal);
-void      low_memory(int what, int limitvalue, int memory, int reservestate)
+void      low_memory(int what, int limitvalue, int memory, int reservestate);
 
 // error.c
 

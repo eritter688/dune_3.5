@@ -9,6 +9,8 @@
 #pragma strong_types
 #pragma pedantic
 
+#define DEFAULT_MUD_NAME                   "DUNE"
+
 // file parsed on startup and shutdown
 #define INIT_FILE                          ""
 #define SHUT_FILE                          ""

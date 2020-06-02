@@ -4,6 +4,19 @@
  */
 object simul_efun;
 
+
+/*
+ * This function is called in the master object after it has been
+ * created and is fully functional.
+ *
+ * arg = 0 the mud just started, this is the first master of all.
+ * arg = 1 the master was destructed and then reactivated (because a new one couldn’t be loaded).
+ * arg = 2 the master was destructed and then reactivated, but additionally lost all variable contents.
+ * arg = 3 this is a reloaded master.
+ *
+ * This function has to at least set up the driverhooks to use.
+ * Also, any mudwho or wizlist handling has to be initialized here.
+ */
 void inaugurate_master(int arg) {
 
     set_driver_hook(H_MOVE_OBJECT0, "");
@@ -87,7 +100,8 @@ void preload(string filename) {
 }
 
 /*
- * Load the simul_efun object and return it's path.
+ * Load the simul_efun object(s) and return one or more paths of it.
+ * Note that the object(s) must be loaded by this function!
  */
 string get_simul_efun() {
     string fname;
@@ -113,14 +127,33 @@ string get_simul_efun() {
  * Currently not implemented.
  */
 
+/*
+ * Evaluate an argument given as option ‘-f’ to the driver.
+ * If several ‘-f’ options are given, this function will be
+ * called sequentially with all given arguments.
+ */
 void flag(string arg) {
     debug_message(sprintf("master::flag(string arg) not implemented. Received '%s'.\n", arg));
 }
 
+/*
+ * Master was reloaded on external request by SIGUSR1.
+ * It will be called after inaugurate_master(M) of course.
+ * If you plan to do additional magic here, you’re welcome.
+ */
 void external_master_reload() {
     raise_error("master::external_master_reload() not implemented.\n");
 }
 
+/*
+ * This function is called in an already destructed master object
+ * if no new master object could be loaded. flag will be 1 if the
+ * old master object could be reclaimed from the list of objects
+ * that were marked for destruction but not yet terminated. If flag
+ * is 0, all variables of the object have been set to 0 and must be re-initialized.
+ *
+ * After this function, inaugurate_master(M) will be applied again.
+ */
 void reactivate_destructed_master(int removed) {
     raise_error("master::reactivate_destructed_master(int removed) not implemented.\n");
 }

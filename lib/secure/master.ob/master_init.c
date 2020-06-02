@@ -34,7 +34,8 @@ void inaugurate_master(int arg) {
             ([
                     "/secure/include/",
                     "/include/"
-            ]));
+            ])
+    );
 
     set_driver_hook(H_AUTO_INCLUDE, "");
 
@@ -96,6 +97,7 @@ string get_simul_efun() {
     if(simul_efun) {
         return efun::object_name(simul_efun);
     }
+
     fname = SIMUL_EFUN_FILE;
     if(error = catch(efun::load_object(fname))) {
         debug_message(sprintf("Couldn't load simul_efun object: %s\n", fname));

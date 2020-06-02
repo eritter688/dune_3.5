@@ -22,7 +22,7 @@ string    get_simul_efun();
 object    connect();
 void      disconnect(object ob);
 void      remove_player(object victim);
-void      stale_erq(closure callback)
+void      stale_erq(closure callback);
 
 // runtime.c
 

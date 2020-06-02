@@ -5,13 +5,11 @@
 #ifndef _H_MASTER_DEFS_H_
 #define _H_MASTER_DEFS_H_
 
-// additional fortification for master object
 #pragma strong_types
 #pragma pedantic
 
 #define DEFAULT_MUD_NAME                   "DUNE"
 
-// file parsed on startup and shutdown
 #define INIT_FILE                          ""
 #define SHUT_FILE                          ""
 
@@ -26,4 +24,3 @@
 #define SIMUL_EFUN_FILE                    ""
 
 #endif // _H_MASTER_DEFS_H_
-

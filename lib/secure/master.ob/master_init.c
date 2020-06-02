@@ -29,9 +29,14 @@ void inaugurate_master(int arg) {
 
     set_driver_hook(H_NOTIFY_FAIL, "What ?\n");
 
-    set_driver_hook(H_INCLUDE_DIRS, "");
+    set_driver_hook(
+            H_INCLUDE_DIRS,
+            ([
+                    "/secure/include/",
+                    "/include/"
+            ]));
 
-    set_driver_hook(H_AUTO_INCLUDE, INCLUDE_DIRECTORIES);
+    set_driver_hook(H_AUTO_INCLUDE, "");
 
     set_driver_hook(H_ERQ_STOP, "");
 

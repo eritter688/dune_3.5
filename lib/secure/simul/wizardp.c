@@ -5,8 +5,8 @@
 **  Iria@Dune.
 */
 #include <wizlevels.h>
-int playerp(object ob);
+#include <object_info.h>
 
 int wizardp(object ob) {
-    return (playerp(ob) && ob->query_wiz_level()>=LEVEL_WIZARD);
+  return objectp(ob) && efun::object_info(ob, OI_ONCE_INTERACTIVE) && (ob->query_wiz_level()>=LEVEL_WIZARD);
 }

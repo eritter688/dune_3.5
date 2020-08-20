@@ -18,7 +18,7 @@
 **    added query_ansi_colors()                 : Iria@Dune.
 **    added query_ansi_modifiers()              : Iria@Dune.
 **    added random_color()                      : Iria@Dune code by ???
-** Copypasted over to Dune_3.5 - Math
+**  Copypasted over to Dune_3.5 - Math
 */
 #define ANSI_CURSOR     0x01
 #define ANSI_COLOR      0x02
@@ -27,9 +27,9 @@
 static mapping ansi_codes;
 static closure remove_ansi_codes;
 
-        string subst(string str,string tok,string repl);
-        status playerp(object ob);
-        string remove_ansi_tokens(string str);
+string subst(string str,string tok,string repl);
+status playerp(object ob);
+string remove_ansi_tokens(string str);
 
 static private void check_ansi_codes() {
     if(ansi_codes) return;

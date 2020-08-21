@@ -12,11 +12,6 @@ inherit EFUN("livings");
 inherit EFUN("mysql");
 #endif /* __MYSQL__ */
 
-/* general purpose efuns */
-inherit EFUN("stdlib");
-inherit EFUN("notify_fail");
-// inherit EFUN("getopt");
-
 /* string manipulation functions */
 inherit EFUN("ansi");
 inherit EFUN("_implode");

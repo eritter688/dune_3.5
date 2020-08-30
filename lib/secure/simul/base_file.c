@@ -15,11 +15,8 @@ string base_file(mixed arg) {
       arg = object_name(arg);
     if(!stringp(arg))
       raise_error("Bad type to argument 1 to base_file()\n");
-    if(sscanf(arg,"%s#%~d",arg)!=2)
-        sscanf(arg,"%s(%~s)",arg);
-#ifdef DUNE
-    if(arg[0]=='@')  arg=arg[1..];
-#endif /* DUNE */
-    //if(arg[0]=='/')  arg=arg[1..];    // remove only once leading / for security reasons
-    return arg;
+    if(sscanf(arg,"%s#%~d", arg) != 2)
+      sscanf(arg,"%s(%~s)", arg);
+    if(arg[0] == '@')  arg = arg[1..];
+return arg;
 }

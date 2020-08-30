@@ -9,5 +9,6 @@
 string dirname(mixed file) {
     if(objectp(file))
       file = object_name(file);
-    return stringp(file) && sprintf("/%s", implode((explode(file,"/")-({ 0, "" }))[0..<2], "/"));
+    return stringp(file)
+           && sprintf("/%s", implode((explode(file, "/")-({ 0, "" }))[0..<2], "/"));
 }

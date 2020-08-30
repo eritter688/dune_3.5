@@ -15,18 +15,19 @@ object load_object(string str);
 
 varargs int place_objects(string file,int n,mixed target) {
     if(!stringp(file))      raise_error("Bad argument 1 to place_object()\n");
-    if(!intp(n) || n<0)     raise_error("Bad argument 2 to place_object()\n");
+    if(!intp(n) || n < 0)     raise_error("Bad argument 2 to place_object()\n");
     if(!load_object(file))  return 0;
-    if(!target)             target=previous_object();
-    if(stringp(target))     target=load_object(target);
+    if(!target)             target = previous_object();
+    if(stringp(target))     target = load_object(target);
     if(!objectp(target))    raise_error("Bad argument 3 to place_object()\n");
-    //if(file[0]=='/')        file=file[1..];
-    if(file[<2..<1]==".c")  file=file[0..<3];
+    if(file[<2..<1] == ".c")  file = file[0..<3];
 
-    if((n -=sizeof(filter(all_inventory(target),(: base_file($1)==$2 :),&file)))<=0)
-        return 0;
+    if((n -= sizeof(filter(all_inventory(target),
+                    (: base_file($1) == $2 :),
+                    &file))) <= 0)
+      return 0;
     set_this_object(previous_object());
-    for(int i=0;i<n;i++)
-        move_object(clone_object(file),target);
+    for(int i = 0; i < n ; i++)
+        move_object(clone_object(file), target);
     return n;
 }

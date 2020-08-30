@@ -8,5 +8,6 @@
 #include <object_info.h>
 
 status playerp(object ob) {
-  return objectp(ob) && efun::object_info(ob, OI_ONCE_INTERACTIVE);
+  return objectp(ob)
+         && efun::object_info(ob, OI_ONCE_INTERACTIVE);
 }

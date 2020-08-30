@@ -23,7 +23,8 @@ object find_npc(string name) {
 }
 
 object find_living(string name) {
-    return LIVINGSD->get_living(name, 0)) || LIVINGSD->get_living(name, 1);
+    return LIVINGSD->get_living(name, 0))
+           || LIVINGSD->get_living(name, 1);
 }
 
 protected void set_living_name(string name) {

@@ -15,12 +15,14 @@ void log_file(string file,string str) {
       raise_error("Bad argument 1 to log_file()\n");
     if(!stringp(str))
       raise_error("Bar argument 2 to log_file()\n");
-    if(member(file,'/',1)!=-1 || file[0]=='.' || strlen(file)>MAX_LOG_FILENAME)
-        raise_error(sprintf("Illegal file name to log_file(): %O\n",file));
+    if(member(file,'/', 1) != -1
+       || file[0] == '.'
+       || strlen(file) > MAX_LOG_FILENAME)
+      raise_error(sprintf("Illegal file name to log_file(): %O\n",file));
 
-    string log_file_name = (file[0]=='@' ? SECURELOG(file) : LOG(file));
+    string log_file_name = (file[0] == '@' ? SECURELOG(file) : LOG(file));
 
-    if(file_size(log_file_name)>MAX_LOG_SIZE)
-        rename(log_file_name, sprintf("%s.old", log_file_name));
-    write_file(log_file_name, sprintf("%s%c", str, str[<1]=='\n' ? 0 : '\n'));
+    if(file_size(log_file_name) > MAX_LOG_SIZE)
+      rename(log_file_name, sprintf("%s.old", log_file_name));
+    write_file(log_file_name, sprintf("%s%c", str, str[<1] == '\n' ? 0 : '\n'));
 }

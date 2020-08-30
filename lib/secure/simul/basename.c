@@ -10,5 +10,6 @@ string basename(mixed file) {
     string *subs;
     if(objectp(file))
       file = object_name(file);
-    return stringp(file) && (sizeof(subs = explode(file,"/")-({0,""})) == 0 ? "/" : subs[<1]);
+    return stringp(file)
+           && (sizeof(subs = explode(file, "/")-({0, ""})) == 0 ? "/" : subs[<1]);
 }
